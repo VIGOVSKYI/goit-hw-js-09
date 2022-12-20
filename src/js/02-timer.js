@@ -2,15 +2,13 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
-const refs = {
-  dateForm: document.querySelector('#datetime-picker'),
-  btnStart: document.querySelector('[data-start]'),
-  timer: document.querySelector('.timer'),
-  days: document.querySelector('[data-days]'),
-  hours: document.querySelector('[data-hours]'),
-  minutes: document.querySelector('[data-minutes]'),
-  seconds: document.querySelector('[data-seconds]'),
-};
+const dateFormRef = document.querySelector('#datetime-picker');
+const btnStartRef = document.querySelector('[data-start]');
+const timerRef = document.querySelector('.timer');
+const daysRef = document.querySelector('[data-days]');
+const hoursRef = document.querySelector('[data-hours]');
+const minutesRef = document.querySelector('[data-minutes]');
+const secondsRef = document.querySelector('[data-seconds]');
 
 let timerId = null;
 let userDate = null;
@@ -23,8 +21,8 @@ const options = {
   onClose(selectedDates) {
     selectedDates[0] <= options.defaultDate
       ? (Notiflix.Notify.failure('Please choose a date in the future!'),
-        (refs.btnStart.disabled = true))
-      : (refs.btnStart.disabled = false);
+        (btnStartRef.disabled = true))
+      : (btnStartRef.disabled = false);
 
     userDate = selectedDates[0];
   },
@@ -52,10 +50,10 @@ const addLeadingZero = value => {
 
 const setTimeToHTML = () => {
   const { days, hours, minutes, seconds } = getConvertMs(getDifferenceDate());
-  refs.days.textContent = addLeadingZero(days);
-  refs.hours.textContent = addLeadingZero(hours);
-  refs.minutes.textContent = addLeadingZero(minutes);
-  refs.seconds.textContent = addLeadingZero(seconds);
+  daysRef.textContent = addLeadingZero(days);
+  hoursRef.textContent = addLeadingZero(hours);
+  minutesRef.textContent = addLeadingZero(minutes);
+  secondsRef.textContent = addLeadingZero(seconds);
 };
 
 const onStartTimer = () => {
@@ -70,8 +68,8 @@ const onStartTimer = () => {
   Notiflix.Notify.success('The countdown has started!');
 };
 
-flatpickr(refs.dateForm, options);
-refs.btnStart.disabled = true;
-refs.btnStart.addEventListener('click', onStartTimer);
+flatpickr(dateFormRef, options);
+btnStartRef.disabled = true;
+btnStartRef.addEventListener('click', onStartTimer);
 
 
